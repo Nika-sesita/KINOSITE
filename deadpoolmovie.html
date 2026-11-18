@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KINOSITE-ფილმები და სერიალები ქართულად</title>
-    <link rel="shortcut icon" href="/image_2026-11-12_034039903-removebg-preview.png" type="image/x-icon">
+    <title id="pageTitle">KINOSITE - ფილმები და სერიალები ქართულად</title>
+    <link rel="shortcut icon" href="image_2026-11-12_034039903-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
         integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-        <link rel="stylesheet" href="deadpoolmovie.css">
-        <link rel="stylesheet" href="mtavari.css">
+    <link rel="stylesheet" href="deadpoolmovie.css">
+    <link rel="stylesheet" href="mtavari.css">
 </head>
 
-<body>
+<body id="top">
     <header class="navbar">
         <div class="nav-left">
             <input type="checkbox" id="menu-toggle" class="toggle-checkbox">
@@ -25,10 +25,10 @@
             <a href="index.html" class="logo">KINO<span>SITE</span></a>
             <nav class="dropdown-sidebar">
                 <ul>
-                    <li><a href="#"><i class="fa-solid fa-tv"></i> სერიალები</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-tv"></i> სერიალები</a></li>
                     <li><a href="kinoebi.html"><i class="fa-solid fa-film"></i> ფილმები</a></li>
-                    <li><a href="#"><i class="fa-solid fa-dragon"></i> ანიმეები</a></li>
-                    <li><a href="#"><i class="fa-solid fa-wand-magic-sparkles"></i> ანიმაციები</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-dragon"></i> ანიმეები</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-wand-magic-sparkles"></i> ანიმაციები</a></li>
 
                     <li class="genre-item">
                         <input type="checkbox" id="genre-toggle" class="toggle-checkbox">
@@ -60,113 +60,83 @@
         <div class="nav-right">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="search" placeholder="ფილმის ძებნა..." class="search-input">
+                <input type="text" id="moviePageSearch" placeholder="ფილმის ძებნა..." class="search-input">
             </div>
         </div>
     </header>
 
     <div class="container">
         <div class="backimg">
-            <img src="MJvUuCAgurK1JgXUJvGrDa37Ke.webp" alt="">
+            <img id="movieBackdrop" src="" alt="">
         </div>
 
         <div class="movieimg">
-            <img src="3E53WEZJqP6aM84D8CckXx4pIHw.webp" alt="">
+            <img id="moviePoster" src="" alt="">
 
             <div class="movie-actions">
                 <button type="button" class="trailer-btn" onclick="openTrailer()">
                     <i class="fa-solid fa-film"></i> ტრეილერი
                 </button>
-                <button type="button" class="fav-btn" onclick="this.classList.toggle('active')">
+                <button type="button" class="fav-btn" id="favBtn" onclick="toggleFavorite()">
                     <i class="fa-solid fa-heart"></i>
                 </button>
             </div>
         </div>
 
         <div class="agwera">
-            <p>დედპული <br> <span>DEADPOOL</span></p>
+            <p id="movieTitles">იტვირთება... <br> <span>LOADING</span></p>
         </div>
 
         <div class="video-box" onclick="playVideo(this)">
-            <img src="moviepage/MJvUuCAgurK1JgXUJvGrDa37Ke.webp" class="cover-img" alt="">
-            <div class="play-btn">▶</div>
+            <img id="videoCover" src="" class="cover-img" alt="">
+            <div class="play-btn" id="playBtn">▶</div>
 
             <video id="myVideo" controls width="100%">
-                <source src="moviepage/12916890_1920_1080_30fps.mp4" type="video/mp4">
+                <source id="videoSource" src="" type="video/mp4">
             </video>
         </div>
 
         <div class="player-bar">
             <div class="lang-switch">
                 <span>ენა:</span>
-                <button type="button" class="opt-btn active" onclick="selectOpt(this)">GEO</button>
-                <button type="button" class="opt-btn" onclick="selectOpt(this)">ENG</button>
-                <button type="button" class="opt-btn" onclick="selectOpt(this)">RUS</button>
+                <button type="button" class="opt-btn active" onclick="changeLanguage(this, 'geo')">GEO</button>
+                <button type="button" class="opt-btn" onclick="changeLanguage(this, 'eng')">ENG</button>
+                <button type="button" class="opt-btn" onclick="changeLanguage(this, 'rus')">RUS</button>
             </div>
 
             <div class="quality-switch">
                 <span>ხარისხი:</span>
-                <button type="button" class="opt-btn active" onclick="selectOpt(this)">1080p</button>
-                <button type="button" class="opt-btn" onclick="selectOpt(this)">720p</button>
+                <button type="button" class="opt-btn active" onclick="changeQuality(this, '1080')">1080p</button>
+                <button type="button" class="opt-btn" onclick="changeQuality(this, '720')">720p</button>
+            </div>
+        </div>
+
+        <div class="series-controls" id="seriesControls" style="display: none;">
+            <div class="season-row">
+                <span>სეზონი:</span>
+                <div class="season-btns" id="seasonButtons"></div>
+            </div>
+            <div class="episode-row">
+                <span>სერია:</span>
+                <div class="episode-btns" id="episodeButtons"></div>
             </div>
         </div>
 
         <div class="movie-info">
-            <div class="movie-meta">
-                <span class="imdb">★ IMDb 8.0</span>
-                <span>2016</span>
-                <span>1 სთ 48 წთ</span>
-                <span class="genre-tag">მძაფრსიუჟეტიანი</span>
-                <span class="genre-tag">კომედია</span>
-                <span class="genre-tag">სათავგადასავლო</span>
+            <div class="movie-meta" id="movieMeta">
+                <span class="imdb">★ IMDb 0.0</span>
+                <span>2026</span>
+                <span>2 სთ</span>
             </div>
-            <p class="story">
-                ყოფილი სპეცრაზმელი უეიდ უილსონი სასიკვდილო დიაგნოზის შემდეგ საიდუმლო ექსპერიმენტს თანხმდება,
-                რომელიც მას სწრაფი განკურნების ზებუნებრივ უნარს სძენს. შავი იუმორით შეიარაღებული დედპული
-                იმ ადამიანზე იწყებს ნადირობას, ვინც მისი ცხოვრება თითქმის გაანადგურა.
-            </p>
+            <p class="story" id="movieStory"></p>
         </div>
     </div>
 
-    <div class="artist">
+    <div class="artist" id="artistSection">
         <div class="artist-text">
             <p>მსახიობები</p>
         </div>
-
-        <div class="card">
-            <img src="deadpool artist/Ryan Reynolds.webp" alt="">
-            <p>Ryan Reynolds</p>
-        </div>
-
-        <div class="card">
-            <img src="deadpool artist/Morena Baccarin.webp" alt="">
-            <p>Morena Baccarin</p>
-        </div>
-
-        <div class="card">
-            <img src="deadpool artist/Ed Skrein.webp" alt="">
-            <p>Ed Skrein</p>
-        </div>
-
-        <div class="card">
-            <img src="deadpool artist/T.J miller.webp" alt="">
-            <p>T.J. Miller</p>
-        </div>
-
-        <div class="card">
-            <img src="deadpool artist/Gina Carano.webp" alt="">
-            <p>Gina Carano</p>
-        </div>
-
-        <div class="card">
-            <img src="deadpool artist/Karan Soni.webp" alt="">
-            <p>Karan Soni</p>
-        </div>
-
-        <div class="card">
-            <img src="deadpool artist/Lestie Uggams.webp" alt="">
-            <p>Leslie Uggams</p>
-        </div>
+        <div id="artistList" style="display: flex; flex-wrap: wrap; gap: 20px; width: 100%;"></div>
     </div>
 
     <div class="similar-movies">
@@ -174,43 +144,13 @@
             <p>მსგავსი ფილმები</p>
         </div>
 
-        <div class="similar-grid">
-            <a href="deadpoolmovie.html" class="similar-card">
-                <img src="/movies/Deadpool & Wolverine.webp" alt="">
-                <p>დედპული და ვულვერინი</p>
-                <span>Deadpool & Wolverine</span>
-            </a>
-
-            <a href="/deadpool.html" class="similar-card">
-                <img src="/movies/spiderman.webp" alt="">
-                <p>სპაიდერმენი</p>
-                <span>Spider-Man</span>
-            </a>
-
-            <a href="deadpoolmovie.html" class="similar-card">
-                <img src="/movies/venom3.webp" alt="">
-                <p>ვენომი: უკანასკნელი ცეკვა</p>
-                <span>Venom: The Last Dance</span>
-            </a>
-
-            <a href="deadpoolmovie.html" class="similar-card">
-                <img src="/movies/batman.webp" alt="">
-                <p>ბეტმენი</p>
-                <span>The Batman</span>
-            </a>
-
-            <a href="deadpoolmovie.html" class="similar-card">
-                <img src="/movies/the dark knight.webp" alt="">
-                <p>ბნელი რაინდი</p>
-                <span>The Dark Knight</span>
-            </a>
-        </div>
+        <div class="similar-grid" id="similarGrid"></div>
     </div>
 
     <div id="trailerModal" class="trailer-modal" onclick="closeTrailer(event)">
         <div class="trailer-content">
             <button type="button" class="close-trailer" onclick="closeTrailer(event)">✕</button>
-            <iframe id="trailerFrame" src="" title="Deadpool Trailer" allowfullscreen></iframe>
+            <iframe id="trailerFrame" src="" title="Trailer" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -220,7 +160,7 @@
                 <ul>
                     <li><a href="index.html">მთავარი</a></li>
                     <li><a href="kinoebi.html">ფილმები</a></li>
-                    <li><a href="#">სერიალები</a></li>
+                    <li><a href="index.html">სერიალები</a></li>
                 </ul>
 
                 <ul>
@@ -237,9 +177,9 @@
             <div class="footer-social">
                 <h4>Follow us on</h4>
                 <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/nika.sesitashvili.2025"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@_ses1ta_?lang=en"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/ses1ta_105/"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
@@ -249,11 +189,13 @@
             <span>ყველა უფლება დაცულია</span>
         </div>
     </footer>
+
     <a href="#top" class="magla-asvla" id="backToTop">
         <i class="fa-solid fa-arrow-up"></i>
     </a>
-    <script src="deadpoolmovie.js"></script>
 
+    <script src="movies-data.js"></script>
+    <script src="deadpoolmovie.js"></script>
 </body>
 
 </html>

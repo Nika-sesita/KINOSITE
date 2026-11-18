@@ -608,6 +608,77 @@ html {
 .magla-asvla:hover {
   transform: translateY(-3px);
 }
+.series-controls {
+  position: absolute;
+  top: 690px;
+  left: 370px;
+  right: 50px;
+  background: rgba(18, 18, 22, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 16px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 5;
+}
+
+.season-row,
+.episode-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.season-btns,
+.episode-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 95px;
+  overflow-y: auto;
+}
+
+.season-btns::-webkit-scrollbar,
+.episode-btns::-webkit-scrollbar {
+  width: 4px;
+}
+
+.season-btns::-webkit-scrollbar-thumb,
+.episode-btns::-webkit-scrollbar-thumb {
+  background: #e50914;
+  border-radius: 4px;
+}
+
+.container.is-series {
+  min-height: 910px;
+}
+
+.container.is-series .backimg {
+  height: 910px;
+}
+
+.container.is-series .movie-info {
+  top: 825px;
+}
+
+@media (max-width: 1100px) {
+  .series-controls {
+    position: static;
+    order: 3;
+    width: 100%;
+  }
+
+  .container.is-series {
+    min-height: auto;
+  }
+
+  .container.is-series .movie-info {
+    position: static;
+  }
+}
 @media (max-width: 1100px) {
   .container {
     min-height: auto;
