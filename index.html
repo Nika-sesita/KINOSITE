@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ka">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINOSITE-ფილმები და სერიალები ქართულად</title>
+    <link rel="shortcut icon" href="/image_2026-11-12_034039903-removebg-preview.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
+        integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="top">
+    <header class="navbar">
+        <div class="nav-left">
+            <input type="checkbox" id="menu-toggle" class="toggle-checkbox">
+
+            <label for="menu-toggle" class="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+
+            <a href="index.html" class="logo">KINO<span>SITE</span></a>
+            <nav class="dropdown-sidebar">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-tv"></i> სერიალები</a></li>
+                    <li><a href="/kinoebi.html"><i class="fa-solid fa-film"></i> ფილმები</a></li>
+                    <li><a href="#"><i class="fa-solid fa-dragon"></i> ანიმეები</a></li>
+                    <li><a href="#"><i class="fa-solid fa-wand-magic-sparkles"></i> ანიმაციები</a></li>
+
+                    <li class="genre-item">
+                        <input type="checkbox" id="genre-toggle" class="toggle-checkbox">
+                        <label for="genre-toggle" class="genre-label">
+                            <span><i class="fa-solid fa-layer-group"></i> ჟანრი</span>
+                            <i class="fa-solid fa-chevron-down arrow"></i>
+                        </label>
+
+                        <ul class="genre-submenu">
+                            <li><a href="#">მძაფრსიუჟეტიანი</a></li>
+                            <li><a href="#">სათავგადასავლო</a></li>
+                            <li><a href="#">ფანტასტიკა</a></li>
+                            <li><a href="#">ფენტეზი</a></li>
+                            <li><a href="#">კომედია</a></li>
+                            <li><a href="#">დრამა</a></li>
+                            <li><a href="#">თრილერი</a></li>
+                            <li><a href="#">საშინელებათა</a></li>
+                            <li><a href="#">დეტექტივი</a></li>
+                            <li><a href="#">კრიმინალური</a></li>
+                            <li><a href="#">მელოდრამა</a></li>
+                            <li><a href="#">ისტორიული</a></li>
+                            <li><a href="#">საოჯახო</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="nav-right">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search" placeholder="ფილმის ძებნა..." class="search-input">
+            </div>
+        </div>
+    </header>
+
+    <div class="slider">
+        <div class="slides" id="slides">
+            <div class="slide">
+                <img src="/slider/hearts.webp" alt="">
+                <div class="slide-text">
+                    <span class="reitingi">★ 7.8 • 2026</span>
+                    <h2>Heart of the Beast (2026)</h2>
+                    <a href="deadpoolmovie.html" class="watch-btn">▶ ყურება</a>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="/slider/spiderman.webp" alt="">
+                <div class="slide-text">
+                    <span class="reitingi">★ 8.6 • 2026</span>
+                    <h2>Spider-Man: Brand New Day (2026)</h2>
+                    <a href="deadpoolmovie.html" class="watch-btn">▶ ყურება</a>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="/slider/Verity.webp" alt="">
+                <div class="slide-text">
+                    <span class="reitingi">★ 7.9 • 2026</span>
+                    <h2>Verity (2026)</h2>
+                    <a href="deadpoolmovie.html" class="watch-btn">▶ ყურება</a>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="isari ukan" id="prevSlide"><i class="fa-solid fa-chevron-left"></i></button>
+        <button type="button" class="isari win" id="nextSlide"><i class="fa-solid fa-chevron-right"></i></button>
+
+        <div class="wertilebi" id="sliderDots">
+            <span class="wertili active" data-index="0"></span>
+            <span class="wertili" data-index="1"></span>
+            <span class="wertili" data-index="2"></span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="top-ateuli">
+            <div class="satauri">
+                <h2>ტოპ 10 დღეს</h2>
+            </div>
+            <div class="ateulis-xazi">
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">1</span>
+                    <img src="/deadpool/moviepage/3E53WEZJqP6aM84D8CckXx4pIHw.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">2</span>
+                    <img src="/movies/Deadpool & Wolverine.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">3</span>
+                    <img src="/movies/spiderman.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">4</span>
+                    <img src="/movies/Heart of the Beast .webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">5</span>
+                    <img src="/movies/verity.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">6</span>
+                    <img src="/movies/dune2.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">7</span>
+                    <img src="/movies/oppenheimer.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">8</span>
+                    <img src="/movies/the dark knight.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">9</span>
+                    <img src="/movies/interstellar.webp" alt="">
+                </a>
+                <a href="deadpoolmovie.html" class="top-kino">
+                    <span class="cifri">10</span>
+                    <img src="/movies/coco.webp" alt="">
+                </a>
+            </div>
+        </div>
+
+        <div class="filtrebi" id="filterBar">
+            <button type="button" class="filtri-btn active" data-filter="all">ყველა</button>
+            <button type="button" class="filtri-btn" data-filter="popular">პოპულარული</button>
+            <button type="button" class="filtri-btn" data-filter="2026">2026</button>
+            <button type="button" class="filtri-btn" data-filter="action">მძაფრსიუჟეტიანი</button>
+            <button type="button" class="filtri-btn" data-filter="comedy">კომედია</button>
+            <button type="button" class="filtri-btn" data-filter="animation">ანიმაცია</button>
+        </div>
+
+        <div class="card" id="movieGrid">
+            <div class="kino" data-category="popular 2026 action comedy">
+                <div class="img">
+                    <span class="qula">★ 8.0</span>
+                    <span class="weli">2026</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/deadpool/moviepage/3E53WEZJqP6aM84D8CckXx4pIHw.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>დედპული 2026</p>
+                    <p>Deadpool</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action comedy">
+                <div class="img">
+                    <span class="qula">★ 7.7</span>
+                    <span class="weli">2024</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/Deadpool & Wolverine.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>დედპული და ვულვერინი</p>
+                    <p>Deadpool & Wolverine</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular 2026 action">
+                <div class="img">
+                    <span class="qula">★ 8.6</span>
+                    <span class="weli">2026</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/spiderman.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>სპაიდერმენი</p>
+                    <p>Spider-Man: Brand New Day</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="2026 action">
+                <div class="img">
+                    <span class="qula">★ 7.8</span>
+                    <span class="weli">2026</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/Heart of the Beast .webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>მხეცის გული</p>
+                    <p>Heart of the Beast</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular 2026">
+                <div class="img">
+                    <span class="qula">★ 7.9</span>
+                    <span class="weli">2026</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/verity.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ჭეშმარიტება</p>
+                    <p>Verity</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 8.5</span>
+                    <span class="weli">2024</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/dune2.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>დიუნი: ნაწილი მეორე</p>
+                    <p>Dune: Part Two</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular">
+                <div class="img">
+                    <span class="qula">★ 8.3</span>
+                    <span class="weli">2023</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/oppenheimer.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ოპენჰაიმერი</p>
+                    <p>Oppenheimer</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="action">
+                <div class="img">
+                    <span class="qula">★ 7.1</span>
+                    <span class="weli">2024</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/gladiator2.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>გლადიატორი 2</p>
+                    <p>Gladiator II</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="action comedy">
+                <div class="img">
+                    <span class="qula">★ 6.8</span>
+                    <span class="weli">2024</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/venom3.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ვენომი: უკანასკნელი ცეკვა</p>
+                    <p>Venom: The Last Dance</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 7.8</span>
+                    <span class="weli">2022</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/batman.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ბეტმენი</p>
+                    <p>The Batman</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="2026">
+                <div class="img">
+                    <span class="qula">★ 7.2</span>
+                    <span class="weli">2026</span>
+                    <span class="ena">ENG</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/other mommy.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>სხვა დედა</p>
+                    <p>Other Mommy</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="2026">
+                <div class="img">
+                    <span class="qula">★ 7.0</span>
+                    <span class="weli">2026</span>
+                    <span class="ena">ENG</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/Feed.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>კვება</p>
+                    <p>Feed</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="2026 comedy animation">
+                <div class="img">
+                    <span class="qula">★ 7.4</span>
+                    <span class="weli">2026</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/the cat in the hat.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>კატა ქუდით</p>
+                    <p>The Cat In The Hat</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 8.1</span>
+                    <span class="weli">2025</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/superman.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>სუპერმენი</p>
+                    <p>Superman</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 7.9</span>
+                    <span class="weli">2025</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/fantastic4.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ფანტასტიკური ოთხეული</p>
+                    <p>The Fantastic Four</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="action">
+                <div class="img">
+                    <span class="qula">★ 8.0</span>
+                    <span class="weli">2025</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/mission8.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>შეუსრულებელი მისია 8</p>
+                    <p>Mission: Impossible 8</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="action">
+                <div class="img">
+                    <span class="qula">★ 7.3</span>
+                    <span class="weli">2025</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/jurassic.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>იურული სამყარო: აღორძინება</p>
+                    <p>Jurassic World Rebirth</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 8.2</span>
+                    <span class="weli">2025</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/avatar3.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ავატარი: ცეცხლი და ფერფლი</p>
+                    <p>Avatar: Fire and Ash</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="animation">
+                <div class="img">
+                    <span class="qula">★ 7.1</span>
+                    <span class="weli">2024</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/mufasa.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>მუფასა: მეფე ლომი</p>
+                    <p>Mufasa: The Lion King</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular comedy animation">
+                <div class="img">
+                    <span class="qula">★ 7.7</span>
+                    <span class="weli">2024</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/insideout2.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>თავდაყირა 2</p>
+                    <p>Inside Out 2</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 9.0</span>
+                    <span class="weli">2008</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/the dark knight.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ბნელი რაინდი</p>
+                    <p>The Dark Knight</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular comedy animation">
+                <div class="img">
+                    <span class="qula">★ 8.4</span>
+                    <span class="weli">2017</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/coco.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>კოკო</p>
+                    <p>Coco</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular">
+                <div class="img">
+                    <span class="qula">★ 8.7</span>
+                    <span class="weli">2014</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/interstellar.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ინტერსტელარი</p>
+                    <p>Interstellar</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 8.8</span>
+                    <span class="weli">2010</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/inception.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>დასაწყისი</p>
+                    <p>Inception</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="action">
+                <div class="img">
+                    <span class="qula">★ 7.7</span>
+                    <span class="weli">2023</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/johnwick4.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ჯონ უიკი 4</p>
+                    <p>John Wick: Chapter 4</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action">
+                <div class="img">
+                    <span class="qula">★ 8.4</span>
+                    <span class="weli">2019</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/avengers.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>შურისმაძიებლები: დასასრული</p>
+                    <p>Avengers: Endgame</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular">
+                <div class="img">
+                    <span class="qula">★ 8.4</span>
+                    <span class="weli">2019</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/joker.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ჯოკერი</p>
+                    <p>Joker</p>
+                </div>
+            </div>
+
+            <div class="kino" data-category="popular action animation">
+                <div class="img">
+                    <span class="qula">★ 8.6</span>
+                    <span class="weli">2023</span>
+                    <span class="ena">GEO</span>
+                    <a href="deadpoolmovie.html">
+                        <img src="/movies/spiderverse.webp" alt="">
+                        <div class="chartva"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="title">
+                    <p>ადამიანი-ობობა: სამყაროების მიღმა</p>
+                    <p>Across the Spider-Verse</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="ver-moidzebna" id="noResults">ფილმი ვერ მოიძებნა</p>
+
+        <div class="gverdebi">
+            <a href="index.html" class="gverdi-btn active">1</a>
+            <a href="/kinoebi.html" class="gverdi-btn">2</a>
+            <a href="/kinoebi.html" class="gverdi-btn">3</a>
+            <a href="/kinoebi.html" class="gverdi-btn">შემდეგი →</a>
+        </div>
+    </div>
+
+    <a href="#top" class="magla-asvla" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#top">მთავარი</a></li>
+                    <li><a href="/kinoebi.html">ფილმები</a></li>
+                    <li><a href="#">სერიალები</a></li>
+                </ul>
+
+                <ul>
+                    <li><a href="#">ხშირად დასმული კითხვები</a></li>
+                    <li><a href="#">დახმარება</a></li>
+                    <li><a href="#">პრობლემის დარეპორტება</a></li>
+                </ul>
+
+                <ul>
+                    <li><a href="#">წესები და პირობები</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h4>Follow us on</h4>
+                <div class="social-icons">
+                    <a href="https://www.tiktok.com/@_ses1ta_?lang=en"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/nika.sesitashvili.2025"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/ses1ta_105/"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>2026 kinosite.ge</span>
+            <span>ყველა უფლება დაცულია</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
