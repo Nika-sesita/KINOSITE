@@ -1,3 +1,35 @@
+/**
+ * ქმნის სეზონებს და სერიებს ნებისმიერი სერიალისთვის/ანიმესთვის.
+ * epCountsPerSeason: [სეზონ1_სერიები, სეზონ2_სერიები, ...]
+ * overrides: { "სეზონი-სერია": { geo: "...", eng: "...", rus: "..." } }
+ */
+function buildSeasons(epCountsPerSeason, overrides = {}) {
+    return epCountsPerSeason.map((epCount, sIdx) => {
+        const seasonNum = sIdx + 1;
+        return {
+            season: seasonNum,
+            episodes: Array.from({ length: epCount }, (__, eIdx) => {
+                const epNum = eIdx + 1;
+                const key = `${seasonNum}-${epNum}`;
+                const v = overrides[key] || {};
+                const geoUrl = (v.geo || "").trim();
+                const engUrl = (v.eng || "").trim();
+                const rusUrl = (v.rus || "").trim();
+
+                return {
+                    ep: `სერია ${epNum}`,
+                    video: geoUrl,
+                    videos: {
+                        geo: geoUrl,
+                        eng: engUrl,
+                        rus: rusUrl
+                    }
+                };
+            })
+        };
+    });
+}
+
 const MOVIES_DB = [
     // ==========================================
     // მთავარი გვერდის ფილმები (1 - 28 | showOnHome: true)
@@ -6,7 +38,7 @@ const MOVIES_DB = [
         id: "deadpool",
         titleGeo: "დედპული",
         titleEng: "Deadpool",
-        img: "deadpool/moviepage/3E53WEZJqP6aM84D8CckXx4pIHw.webp",
+        img: "moviepage/3E53WEZJqP6aM84D8CckXx4pIHw.webp",
         backdrop: "moviepage/MJvUuCAgurK1JgXUJvGrDa37Ke.webp",
         video: "moviepage/12916890_1920_1080_30fps.mp4",
         trailer: "https://www.youtube.com/embed/ONHBaC-pfsk",
@@ -90,7 +122,7 @@ const MOVIES_DB = [
         id: "dune-2",
         titleGeo: "დიუნი: ნაწილი მეორე",
         titleEng: "Dune: Part Two",
-        img: "movies/dune2.webp",
+        img: "movies/Dune Part Two.webp",
         trailer: "https://www.youtube.com/embed/Way9Dexny3w",
         rating: "8.5",
         year: "2024",
@@ -415,8 +447,25 @@ const MOVIES_DB = [
     },
 
     // ==========================================
-    // სერიალები (30 ცალი | type: "series")
+    // სერიალები (30 ცალი | ყველა სეზონი და სერია)
     // ==========================================
+    {
+        id: "shameless",
+        type: "series",
+        titleGeo: "უსირცხვილო",
+        titleEng: "Shameless",
+        img: "series/shameless.webp",
+        trailer: "https://www.youtube.com/embed/9Gor5lv9aM8",
+        rating: "8.5",
+        year: "2011",
+        duration: "50 წთ / სერია",
+        lang: "GEO",
+        genres: ["კომედია", "დრამა"],
+        category: "series popular comedy",
+        story: "ფრენკ გალაჰერი მრავალშვილიანი ოჯახის ლოთი და უპასუხისმგებლო მამაა, რომლის შვილებიც თავად ცდილობენ გადარჩენას და ოჯახის შენარჩუნებას სამხრეთ ჩიკაგოს რთულ გარემოში.",
+        seasons: buildSeasons([12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 14]),
+        showOnHome: false
+    },
     {
         id: "breaking-bad",
         type: "series",
@@ -431,10 +480,7 @@ const MOVIES_DB = [
         genres: ["კრიმინალური", "დრამა", "თრილერი"],
         category: "series popular",
         story: "ქიმიის მასწავლებელი უოლტერ უაითი სასიკვდილო დიაგნოზის შემდეგ ყოფილ მოსწავლესთან ერთად მეტამფეტამინის დამზადებას იწყებს.",
-        seasons: [
-            { season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }, { ep: "სერია 3", video: "" }] },
-            { season: 2, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }
-        ],
+        seasons: buildSeasons([7, 13, 13, 13, 16]),
         showOnHome: false
     },
     {
@@ -451,10 +497,7 @@ const MOVIES_DB = [
         genres: ["ფენტეზი", "დრამა", "სათავგადასავლო"],
         category: "series popular action",
         story: "ცხრა კეთილშობილი ოჯახი ვესტეროსის რკინის ტახტისთვის იბრძვის, სანამ ჩრდილოეთიდან უძველესი მტერი ბრუნდება.",
-        seasons: [
-            { season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }, { ep: "სერია 3", video: "" }] },
-            { season: 2, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }
-        ],
+        seasons: buildSeasons([10, 10, 10, 10, 10, 10, 7, 6]),
         showOnHome: false
     },
     {
@@ -470,7 +513,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფანტასტიკა", "საშინელებათა", "თრილერი"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8, 9, 8, 9, 8]),
         showOnHome: false
     },
     {
@@ -486,7 +529,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["მძაფრსიუჟეტიანი", "დრამა", "სათავგადასავლო"],
         category: "series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([9, 7]),
         showOnHome: false
     },
     {
@@ -502,7 +545,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფენტეზი", "დრამა", "მძაფრსიუჟეტიანი"],
         category: "series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([10, 8]),
         showOnHome: false
     },
     {
@@ -518,7 +561,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["კრიმინალური", "დრამა"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([6, 6, 6, 6, 6, 6]),
         showOnHome: false
     },
     {
@@ -534,7 +577,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["მძაფრსიუჟეტიანი", "კომედია", "ფანტასტიკა"],
         category: "series popular action comedy",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8, 8, 8, 8]),
         showOnHome: false
     },
     {
@@ -550,7 +593,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფენტეზი", "მძაფრსიუჟეტიანი", "სათავგადასავლო"],
         category: "series action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8, 8, 8]),
         showOnHome: false
     },
     {
@@ -566,7 +609,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["კრიმინალური", "თრილერი", "მძაფრსიუჟეტიანი"],
         category: "series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([13, 9, 8, 8, 10]),
         showOnHome: false
     },
     {
@@ -582,7 +625,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფანტასტიკა", "თრილერი", "დეტექტივი"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([10, 8, 8]),
         showOnHome: false
     },
     {
@@ -598,7 +641,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["დეტექტივი", "კრიმინალური", "დრამა"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([3, 3, 3, 3]),
         showOnHome: false
     },
     {
@@ -614,7 +657,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["კრიმინალური", "დრამა"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([10, 10, 10, 10, 10, 13]),
         showOnHome: false
     },
     {
@@ -630,7 +673,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფენტეზი", "კომედია", "დეტექტივი"],
         category: "series popular comedy",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8, 8]),
         showOnHome: false
     },
     {
@@ -646,7 +689,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["თრილერი", "მძაფრსიუჟეტიანი", "დრამა"],
         category: "series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([9, 7]),
         showOnHome: false
     },
     {
@@ -662,7 +705,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფანტასტიკა", "მძაფრსიუჟეტიანი", "სათავგადასავლო"],
         category: "series action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8, 8, 8]),
         showOnHome: false
     },
     {
@@ -678,7 +721,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["მძაფრსიუჟეტიანი", "ისტორიული", "დრამა"],
         category: "series action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([9, 10, 10, 20, 20, 20]),
         showOnHome: false
     },
     {
@@ -694,7 +737,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["დრამა", "ისტორიული", "თრილერი"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([5]),
         showOnHome: false
     },
     {
@@ -710,7 +753,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["დეტექტივი", "კრიმინალური", "თრილერი"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8, 8, 8, 6]),
         showOnHome: false
     },
     {
@@ -726,7 +769,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფანტასტიკა", "თრილერი", "დრამა"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([9, 10]),
         showOnHome: false
     },
     {
@@ -742,7 +785,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფანტასტიკა", "მძაფრსიუჟეტიანი", "სათავგადასავლო"],
         category: "series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8]),
         showOnHome: false
     },
     {
@@ -758,7 +801,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ისტორიული", "დრამა", "მძაფრსიუჟეტიანი"],
         category: "series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([10]),
         showOnHome: false
     },
     {
@@ -774,7 +817,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["კრიმინალური", "დრამა"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([8]),
         showOnHome: false
     },
     {
@@ -790,7 +833,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "მძაფრსიუჟეტიანი", "ფენტეზი"],
         category: "series popular animation action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([9, 9]),
         showOnHome: false
     },
     {
@@ -806,7 +849,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "კომედია", "ფანტასტიკა"],
         category: "series popular animation comedy",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([11, 10, 10, 10, 10, 10, 10]),
         showOnHome: false
     },
     {
@@ -822,7 +865,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["საშინელებათა", "დრამა", "თრილერი"],
         category: "series action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([6, 13, 16, 16, 16, 16, 16, 16, 16, 22, 24]),
         showOnHome: false
     },
     {
@@ -838,7 +881,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["მძაფრსიუჟეტიანი", "კრიმინალური", "თრილერი"],
         category: "series action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([22, 22, 13, 22, 9]),
         showOnHome: false
     },
     {
@@ -854,7 +897,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["სათავგადასავლო", "დრამა", "ფანტასტიკა"],
         category: "series",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([25, 24, 23, 14, 17, 18]),
         showOnHome: false
     },
     {
@@ -870,7 +913,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["კომედია", "მელოდრამა"],
         category: "series popular comedy",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([24, 24, 25, 24, 24, 25, 24, 24, 24, 18]),
         showOnHome: false
     },
     {
@@ -886,7 +929,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["კომედია"],
         category: "series popular comedy",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([6, 22, 23, 14, 26, 24, 24, 24, 23]),
         showOnHome: false
     },
     {
@@ -902,12 +945,12 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ფანტასტიკა", "თრილერი", "დრამა"],
         category: "series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([3, 4, 6, 6, 3, 5]),
         showOnHome: false
     },
 
     // ==========================================
-    // ანიმეები (10 ცალი | category: "anime ...")
+    // ანიმეები (10 ცალი | ყველა სეზონი და სერია)
     // ==========================================
     {
         id: "attack-on-titan",
@@ -923,7 +966,7 @@ const MOVIES_DB = [
         genres: ["ანიმაცია", "მძაფრსიუჟეტიანი", "ფენტეზი"],
         category: "anime series popular action",
         story: "კაცობრიობა გიგანტური კედლების მიღმა ცხოვრობს, რათა თავი დაიცვას კაციჭამია ტიტანებისგან. ერენ იეგერი ფიცს დებს, რომ ყველა ტიტანს გაანადგურებს.",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([25, 12, 22, 30]),
         showOnHome: false
     },
     {
@@ -940,7 +983,7 @@ const MOVIES_DB = [
         genres: ["ანიმაცია", "მძაფრსიუჟეტიანი", "სათავგადასავლო"],
         category: "anime series popular action",
         story: "ოჯახის ამოწყვეტის შემდეგ ტანჯირო კამადო დემონებზე მონადირე ხდება, რათა თავისი დემონად ქცეული და ისევ ადამიანად აქციოს.",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([26, 18, 11, 8]),
         showOnHome: false
     },
     {
@@ -956,7 +999,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "მძაფრსიუჟეტიანი", "ფენტეზი"],
         category: "anime series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([24, 23]),
         showOnHome: false
     },
     {
@@ -972,7 +1015,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "მძაფრსიუჟეტიანი", "სათავგადასავლო"],
         category: "anime series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([32, 21, 23, 25, 24]),
         showOnHome: false
     },
     {
@@ -988,7 +1031,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "სათავგადასავლო", "კომედია"],
         category: "anime series popular action comedy",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([61, 16, 15, 14, 13]),
         showOnHome: false
     },
     {
@@ -1004,7 +1047,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "თრილერი", "დეტექტივი"],
         category: "anime series popular",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([37]),
         showOnHome: false
     },
     {
@@ -1020,7 +1063,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "მძაფრსიუჟეტიანი", "ფენტეზი"],
         category: "anime series popular action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([12, 13]),
         showOnHome: false
     },
     {
@@ -1036,7 +1079,7 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "მძაფრსიუჟეტიანი", "საშინელებათა"],
         category: "anime series action",
-        seasons: [{ season: 1, episodes: [{ ep: "სერია 1", video: "" }, { ep: "სერია 2", video: "" }] }],
+        seasons: buildSeasons([12]),
         showOnHome: false
     },
     {
@@ -1065,6 +1108,514 @@ const MOVIES_DB = [
         lang: "GEO",
         genres: ["ანიმაცია", "მელოდრამა", "ფენტეზი"],
         category: "anime animation popular",
+        showOnHome: false
+    },
+
+    // ==========================================
+    // ძველი და კლასიკური ქართული ფილმები (36 ცალი)
+    // ==========================================
+    {
+        id: "ar-daidardo",
+        titleGeo: "არ დაიდარდო",
+        titleEng: "Don't Grieve",
+        img: "movies/geo/ar-daidardo.webp",
+        rating: "8.8",
+        year: "1969",
+        duration: "1 სთ 32 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "დრამა"],
+        category: "popular comedy georgian",
+        story: "გიორგი დანელიას კეთილი და სევდანარევი იუმორით გაჯერებული ფილმი ქალაქის ცხოვრებასა და ადამიანურ ურთიერთობებზე.",
+        showOnHome: true
+    },
+    {
+        id: "sherekilebi",
+        titleGeo: "შერეკილები",
+        titleEng: "The Eccentrics",
+        img: "movies/geo/sherekilebi.webp",
+        rating: "8.9",
+        year: "1973",
+        duration: "1 სთ 17 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "სათავგადასავლო", "მელოდრამა"],
+        category: "popular comedy georgian",
+        story: "მეოცნებე ქრისტეფორესა და მისი მეგობრების თავგადასავალი მფრინავი აპარატის შექმნისა და სიყვარულის ძიებაში.",
+        showOnHome: true
+    },
+    {
+        id: "tsisperi-mtebi",
+        titleGeo: "ცისფერი მთები ანუ დაუჯერებელი ამბავი",
+        titleEng: "Blue Mountains",
+        img: "movies/geo/tsisperi-mtebi.webp",
+        rating: "8.8",
+        year: "1983",
+        duration: "1 სთ 35 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "დრამა"],
+        category: "popular comedy georgian",
+        story: "ელდარ შენგელაიას საკულტო სატირა გამომცემლობის ბიუროკრატიასა და გულგრილობაზე.",
+        showOnHome: true
+    },
+    {
+        id: "mimino",
+        titleGeo: "მიმინო",
+        titleEng: "Mimino",
+        img: "movies/geo/mimino.webp",
+        rating: "8.3",
+        year: "1977",
+        duration: "1 სთ 37 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "დრამა"],
+        category: "popular comedy georgian",
+        story: "მთის მფრინავ ვალიკო მიზანდარის ისტორია დიდი ავიაციის, მეგობრობისა და მშობლიური მიწის სიყვარულზე.",
+        showOnHome: true
+    },
+    {
+        id: "didostatis-marjvena",
+        titleGeo: "დიდოსტატის მარჯვენა",
+        titleEng: "The Right Hand of the Grand Master",
+        img: "movies/geo/didostatis-marjvena.webp",
+        rating: "8.5",
+        year: "1970",
+        duration: "2 სთ 22 წთ",
+        lang: "GEO",
+        genres: ["ისტორიული", "დრამა", "მელოდრამა"],
+        category: "georgian",
+        story: "კონსტანტინე გამსახურდიას რომანის ეკრანიზაცია XI საუკუნის საქართველოზე, მეფე გიორგი I-სა და კონსტანტინე არსაკიძეზე.",
+        showOnHome: true
+    },
+    {
+        id: "giorgobistve",
+        titleGeo: "გიორგობისთვე",
+        titleEng: "Pirosmani",
+        img: "movies/geo/giorgobistve.webp",
+        rating: "8.1",
+        year: "1966",
+        duration: "1 სთ 14 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "კომედია"],
+        category: "georgian",
+        story: "ოთარ იოსელიანის სადებიუტო ფილმი ახალგაზრდა მეღვინეზე, რომელიც ქარხნის ღვინის ხარისხისთვის იბრძვის.",
+        showOnHome: false
+    },
+    {
+        id: "pirosmani",
+        titleGeo: "ფიროსმანი",
+        titleEng: "Pirosmani (1969)",
+        img: "movies/geo/pirosmani.webp",
+        rating: "8.2",
+        year: "1969",
+        duration: "1 სთ 25 წთ",
+        lang: "GEO",
+        genres: ["ბიოგრაფიული", "დრამა"],
+        category: "georgian",
+        story: "გიორგი შენგელაიას ფილმი დიდი ქართველი თვითნასწავლი მხატვრის, ნიკო ფიროსმანაშვილის ცხოვრებასა და სიმარტოვეზე.",
+        showOnHome: false
+    },
+    {
+        id: "monanieba",
+        titleGeo: "მონანიება",
+        titleEng: "Repentance",
+        img: "movies/geo/monanieba.webp",
+        rating: "8.6",
+        year: "1984",
+        duration: "2 სთ 33 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "ფენტეზი"],
+        category: "popular georgian",
+        story: "თენგიზ აბულაძის შედევრი ტოტალიტარიზმის, ძალაუფლების ბოროტად გამოყენებისა და სინდისის ქენჯნის შესახებ.",
+        showOnHome: false
+    },
+    {
+        id: "natvris-khe",
+        titleGeo: "ნატვრის ხე",
+        titleEng: "The Wishing Tree",
+        img: "movies/geo/natvris-khe.webp",
+        rating: "8.5",
+        year: "1976",
+        duration: "1 სთ 34 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "მელოდრამა"],
+        category: "georgian",
+        story: "გიორგი ლეონიძის მოთხრობების მიხედვით შექმნილი პოეტური და დრამატული ამბავი სოფლის ცხოვრებასა და ადამიანურ სისასტიკეზე.",
+        showOnHome: false
+    },
+    {
+        id: "vedreba",
+        titleGeo: "ვედრება",
+        titleEng: "The Plea",
+        img: "movies/geo/vedreba.webp",
+        rating: "8.3",
+        year: "1967",
+        duration: "1 სთ 14 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "ფენტეზი"],
+        category: "georgian",
+        story: "ვაჟა-ფშაველას პოემების („ალუდა ქეთელაური“, „სტუმარ-მასპინძელი“) მოტივებზე შექმნილი ფილმი.",
+        showOnHome: false
+    },
+    {
+        id: "jariskacis-mama",
+        titleGeo: "ჯარისკაცის მამა",
+        titleEng: "Father of a Soldier",
+        img: "movies/geo/jariskacis-mama.webp",
+        rating: "8.4",
+        year: "1964",
+        duration: "1 სთ 28 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "ისტორიული"],
+        category: "popular georgian",
+        story: "კახელი გლეხის, გიორგი მახარაშვილის თავგანწირული გზა მეორე მსოფლიო ომის ფრონტზე დაჭრილი შვილის სანახავად.",
+        showOnHome: false
+    },
+    {
+        id: "data-tutashkhia",
+        titleGeo: "დათა თუთაშხია",
+        titleEng: "Data Tutashkhia",
+        img: "movies/geo/data-tutashkhia.webp",
+        rating: "9.0",
+        year: "1978",
+        duration: "7 სთ 00 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "ისტორიული", "სათავგადასავლო"],
+        category: "popular georgian",
+        story: "ჭაბუა ამირეჯიბის რომანის ეკრანიზაცია რაინდული სულისკვეთების მქონე აბრაგ დათა თუთაშხიას რთულ ბედზე.",
+        showOnHome: false
+    },
+    {
+        id: "qeto-da-kote",
+        titleGeo: "ქეთო და კოტე",
+        titleEng: "Keto and Kote",
+        img: "movies/geo/qeto-da-kote.webp",
+        rating: "8.2",
+        year: "1948",
+        duration: "1 სთ 36 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "მელოდრამა"],
+        category: "comedy georgian",
+        story: "ძველი თბილისის კოლორიტული მუსიკალური კომედია შეყვარებული ქეთოსა და კოტეს სიყვარულის ისტორიაზე.",
+        showOnHome: false
+    },
+    {
+        id: "tsitsianis-qorwili",
+        titleGeo: "ჭრიჭინა",
+        titleEng: "Dragonfly",
+        img: "movies/geo/chrichina.webp",
+        rating: "8.1",
+        year: "1954",
+        duration: "1 სთ 25 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "მელოდრამა"],
+        category: "comedy georgian",
+        story: "მხიარული და ცანცარა მარინეს ამბავი, რომელიც ცხოვრებისეული გამოცდების შემდეგ ნამდვილ ღირებულებებს აფასებს.",
+        showOnHome: false
+    },
+    {
+        id: "sabodisho",
+        titleGeo: "საბუდარელი ჭაბუკი",
+        titleEng: "A Young Man from Sabudara",
+        img: "movies/geo/sabudareli-chabuki.webp",
+        rating: "8.0",
+        year: "1957",
+        duration: "1 სთ 20 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "დრამა"],
+        category: "comedy georgian",
+        story: "ახალგაზრდა გოგიას ცხოვრება და სიყვარული სოფელ საბუდარაში შრომისა და პატიოსნების გზაზე.",
+        showOnHome: false
+    },
+    {
+        id: "magdanas-lurja",
+        titleGeo: "მაგდანას ლურჯა",
+        titleEng: "Magdana's Donkey",
+        img: "movies/geo/magdanas-lurja.webp",
+        rating: "8.4",
+        year: "1955",
+        duration: "1 სთ 03 წთ",
+        lang: "GEO",
+        genres: ["დრამა"],
+        category: "georgian",
+        story: "ეკატერინე გაბაშვილის მოთხრობის ეკრანიზაცია ღარიბი ქვრივისა და მისი შვილების მიერ ნაპოვნი დაჭრილი ვირის ისტორიაზე.",
+        showOnHome: false
+    },
+    {
+        id: "dideba",
+        titleGeo: "დიდება",
+        titleEng: "Glory",
+        img: "movies/geo/dideba.webp",
+        rating: "7.8",
+        year: "1969",
+        duration: "1 სთ 22 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "კომედია"],
+        category: "georgian",
+        story: "ირონიული და საინტერესო ამბავი დიდებისა და სახელის მოხვეჭის სურვილზე.",
+        showOnHome: false
+    },
+    {
+        id: "kukaracha",
+        titleGeo: "კუკარაჩა",
+        titleEng: "Kukaracha",
+        img: "movies/geo/kukaracha.webp",
+        rating: "8.6",
+        year: "1982",
+        duration: "1 სთ 35 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "მელოდრამა"],
+        category: "popular georgian",
+        story: "ნოდარ დუმბაძის მოთხრობის მიხედვით გადაღებული ისტორია უბნის კეთილ და სამართლიან მილიციელზე.",
+        showOnHome: false
+    },
+    {
+        id: "me-bebia-iliko-da-ilarioni",
+        titleGeo: "მე, ბებია, ილიკო და ილარიონი",
+        titleEng: "Me, Grandma, Iliko and Ilarion",
+        img: "movies/geo/me-bebia-iliko-da-ilarioni.webp",
+        rating: "8.9",
+        year: "1962",
+        duration: "1 სთ 36 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "დრამა"],
+        category: "popular comedy georgian",
+        story: "გურული იუმორის შედევრი ზურიკელას, ბებია ოლღასა და მისი ორი უცნაური მეზობლის — ილიკოსა და ილარიონის შესახებ.",
+        showOnHome: true
+    },
+    {
+        id: "mze-shemodgomisaa",
+        titleGeo: "მზე შემოდგომისა",
+        titleEng: "The Sun of the Forgiving",
+        img: "movies/geo/mze-shemodgomisaa.webp",
+        rating: "8.3",
+        year: "1973",
+        duration: "1 სთ 24 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "მელოდრამა"],
+        category: "georgian",
+        story: "მწერალის ცხოვრება, მისი ოჯახური განცდები და ძველი სიყვარულის მოულოდნელი დაბრუნება.",
+        showOnHome: false
+    },
+    {
+        id: "didgori-1121",
+        titleGeo: "გიორგი სააკაძე",
+        titleEng: "Georgi Saakadze",
+        img: "movies/geo/giorgi-saakadze.webp",
+        rating: "8.2",
+        year: "1942",
+        duration: "3 სთ 05 წთ",
+        lang: "GEO",
+        genres: ["ისტორიული", "მძაფრსიუჟეტიანი", "დრამა"],
+        category: "action georgian",
+        story: "ისტორიული ეპოპეა XVII საუკუნის გამოჩენილ ქართველ მხედართმთავარ გიორგი სააკაძეზე.",
+        showOnHome: false
+    },
+    {
+        id: "arsena",
+        titleGeo: "არსენა",
+        titleEng: "Arsena",
+        img: "movies/geo/arsena.webp",
+        rating: "7.9",
+        year: "1937",
+        duration: "1 სთ 32 წთ",
+        lang: "GEO",
+        genres: ["ისტორიული", "მძაფრსიუჟეტიანი", "დრამა"],
+        category: "action georgian",
+        story: "მიხეილ ჭიაურელის ფილმი სახალხო გმირ არსენა ოძელაშვილზე.",
+        showOnHome: false
+    },
+    {
+        id: "ushtuba-shentvis",
+        titleGeo: "უძინართა მზე",
+        titleEng: "A Chef in Love",
+        img: "movies/geo/udzinarta-mze.webp",
+        rating: "8.3",
+        year: "1992",
+        duration: "1 სთ 48 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "კომედია"],
+        category: "georgian",
+        story: "თემურ ბაბლუანის ფილმი ქირურგ გელა ბენდელიანზე, რომელიც უნიკალურ ოპერაციასა და საკუთარ სიმართლეს იცავს.",
+        showOnHome: false
+    },
+    {
+        id: "legenda-suramis-tsikheze",
+        titleGeo: "ამბავი სურამის ციხისა",
+        titleEng: "The Legend of Suram Fortress",
+        img: "movies/geo/suramis-tsikhe.webp",
+        rating: "8.1",
+        year: "1984",
+        duration: "1 სთ 28 წთ",
+        lang: "GEO",
+        genres: ["ფენტეზი", "ისტორიული", "დრამა"],
+        category: "georgian",
+        story: "სერგო ფარაჯანოვისა და დოდო აბაშიძის ვიზუალურად გამორჩეული ფილმი უძველეს ქართულ ლეგენდაზე.",
+        showOnHome: false
+    },
+    {
+        id: "khedvis-budeshi",
+        titleGeo: "ხევისბერი გოჩა",
+        titleEng: "Khevisberi Gocha",
+        img: "movies/geo/khevisberi-gocha.webp",
+        rating: "8.2",
+        year: "1964",
+        duration: "1 სთ 21 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "ისტორიული"],
+        category: "georgian",
+        story: "ალექსანდრე ყაზბეგის მოთხრობის ეკრანიზაცია ხევისბერ გოჩას მკაცრ პრინციპებსა და ტრაგიკულ არჩევანზე.",
+        showOnHome: false
+    },
+    {
+        id: "didostatis-khevsureti",
+        titleGeo: "უბისთავი",
+        titleEng: "Chemi Bednieri Ojaxi",
+        img: "movies/geo/chemi-bednieri-ojaxi.webp",
+        rating: "8.0",
+        year: "2017",
+        duration: "2 სთ 00 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "კომედია"],
+        category: "georgian",
+        story: "ოჯახური დრამა თანამედროვე ქართული ოჯახის ყოველდღიურობასა და პირადი თავისუფლების სურვილზე.",
+        showOnHome: false
+    },
+    {
+        id: "mandarinebi",
+        titleGeo: "მანდარინები",
+        titleEng: "Tangerines",
+        img: "movies/geo/mandarinebi.webp",
+        rating: "8.2",
+        year: "2013",
+        duration: "1 სთ 27 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "ისტორიული"],
+        category: "popular georgian",
+        story: "ომის დროს აფხაზეთში დარჩენილი ესტონელი მევენახისა და ორი დაჭრილი ჯარისკაცის ამბავი.",
+        showOnHome: false
+    },
+    {
+        id: "samanishvilis-dedinatsvali",
+        titleGeo: "სამანიშვილის დედინაცვალი",
+        titleEng: "Samanishvili's Stepmother",
+        img: "movies/geo/samanishvilis-dedinatsvali.webp",
+        rating: "8.4",
+        year: "1977",
+        duration: "1 სთ 20 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "დრამა"],
+        category: "comedy georgian",
+        story: "დავით კლდიაშვილის კლასიკური ნაწარმოების ეკრანიზაცია, სადაც იუმორი და სევდა ერთმანეთს ერწყმის.",
+        showOnHome: false
+    },
+    {
+        id: "gaseirneba-qarabaghshi",
+        titleGeo: "გასეირნება ყარაბაღში",
+        titleEng: "A Trip to Karabakh",
+        img: "movies/geo/gaseirneba-qarabaghshi.webp",
+        rating: "7.8",
+        year: "2005",
+        duration: "1 სთ 48 წთ",
+        lang: "GEO",
+        genres: ["მძაფრსიუჟეტიანი", "დრამა", "კრიმინალური"],
+        category: "action georgian",
+        story: "ორი მეგობრის მოგზაურობა და გამოცდა უახლესი ისტორიის ერთ-ერთ ყველაზე მძიმე პერიოდში.",
+        showOnHome: false
+    },
+    {
+        id: "tbilisi-chemi-sikvaruli",
+        titleGeo: "თბილისი — ჩემი სიყვარული",
+        titleEng: "Tbilisi, I Love You",
+        img: "movies/geo/tbilisi-chemi-sikvaruli.webp",
+        rating: "7.4",
+        year: "2014",
+        duration: "1 სთ 40 წთ",
+        lang: "GEO",
+        genres: ["მელოდრამა", "კომედია", "დრამა"],
+        category: "comedy georgian",
+        story: "თბილისის სხვადასხვა უბანში განვითარებული ნოველები სიყვარულზე, მეგობრობასა და ქალაქის სულზე.",
+        showOnHome: false
+    },
+    {
+        id: "giorgi-brtskinvale",
+        titleGeo: "გიორგი ბრწყინვალე",
+        titleEng: "Giorgi Brtskinvale",
+        img: "movies/geo/giorgi-brtskinvale.webp",
+        rating: "7.7",
+        year: "1968",
+        duration: "1 სთ 18 წთ",
+        lang: "GEO",
+        genres: ["ისტორიული", "დრამა"],
+        category: "georgian",
+        story: "ფილმი საქართველოს გამაერთიანებელი მეფის, გიორგი V ბრწყინვალის სახელმწიფოებრივ მოღვაწეობაზე.",
+        showOnHome: false
+    },
+    {
+        id: "otaraant-qvrivi",
+        titleGeo: "ოთარაანთ ქვრივი",
+        titleEng: "Otaraant Widow",
+        img: "movies/geo/otaraant-qvrivi.webp",
+        rating: "8.1",
+        year: "1957",
+        duration: "1 სთ 23 წთ",
+        lang: "GEO",
+        genres: ["დრამა"],
+        category: "georgian",
+        story: "ილია ჭავჭავაძის მოთხრობის ეკრანიზაცია ამაყი და შრომისმოყვარე ოთარაანთ ქვრივისა და მისი ვაჟის, გიორგის შესახებ.",
+        showOnHome: false
+    },
+    {
+        id: "davit-agmashenebeli",
+        titleGeo: "დიდგორი — 1121",
+        titleEng: "Didgori 1121",
+        img: "movies/geo/didgori-1121.webp",
+        rating: "7.6",
+        year: "2021",
+        duration: "1 სთ 45 წთ",
+        lang: "GEO",
+        genres: ["ისტორიული", "მძაფრსიუჟეტიანი"],
+        category: "action georgian",
+        story: "ისტორიული ფილმი დიდგორის ბრძოლასა და საქართველოს ოქროს ხანის დასაწყისზე.",
+        showOnHome: false
+    },
+    {
+        id: "kartuli-baleti",
+        titleGeo: "რაც გინახავს, ვეღარ ნახავ",
+        titleEng: "What You Have Seen You Will Never See Again",
+        img: "movies/geo/rac-ginakhavs.webp",
+        rating: "8.3",
+        year: "1965",
+        duration: "1 სთ 16 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "მელოდრამა"],
+        category: "comedy georgian",
+        story: "სოფელში გამართული მხიარული თავგადასავლები, სიყვარული და ტრადიციული ქართული იუმორი.",
+        showOnHome: false
+    },
+    {
+        id: "akhali-dzlieri-qartuli",
+        titleGeo: "ნერგები",
+        titleEng: "Saplings",
+        img: "movies/geo/nergebi.webp",
+        rating: "8.2",
+        year: "1972",
+        duration: "1 სთ 15 წთ",
+        lang: "GEO",
+        genres: ["დრამა", "კომედია"],
+        category: "georgian",
+        story: "რეზო ჩხეიძის ფილმი მოხუც ლუკასა და მისი შვილიშვილის მოგზაურობაზე სხვადასხვა ჯიშის ნერგების საძებნელად.",
+        showOnHome: false
+    },
+    {
+        id: "kvarkvare",
+        titleGeo: "ყვარყვარე",
+        titleEng: "Kvarkvare",
+        img: "movies/geo/kvarkvare.webp",
+        rating: "8.4",
+        year: "1978",
+        duration: "1 სთ 35 წთ",
+        lang: "GEO",
+        genres: ["კომედია", "სათავგადასავლო"],
+        category: "comedy georgian",
+        story: "პოლიკარპე კაკაბაძის პიესის მიხედვით გადაღებული სატირული კომედია ყვარყვარე თუთაბერის თავგადასავალზე.",
         showOnHome: false
     }
 ];
